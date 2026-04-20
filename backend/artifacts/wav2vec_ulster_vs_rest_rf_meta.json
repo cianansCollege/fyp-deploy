@@ -1,0 +1,9 @@
+{
+  "task_name": "ulster_vs_rest",
+  "model_name": "rf",
+  "label_classes": [
+    "Rest",
+    "Ulster"
+  ],
+  "feature_type": "wav2vec2-base_mean_pool"
+}

@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-multipart
+numpy
+librosa
+scikit-learn
+joblib
+soundfile
+pandas
+sentencepiece
+torch
+transformers

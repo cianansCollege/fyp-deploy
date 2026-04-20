@@ -1,0 +1,144 @@
+/* Alternate light theme retained for the same frontend layout.
+   It is not the active stylesheet, but it mirrors the structure of the dark
+   theme for comparison and experimentation. */
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #9cbad6 0%, #eef2f7 100%);
+}
+
+body > .container-fluid {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  flex: 0 0 auto;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0px;
+  border: 2px solid #c7d3e0;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(36, 55, 89, 0.06);
+}
+
+main.row {
+  flex: 1 1 auto;
+  align-items: stretch;
+  min-height: 0;
+}
+
+main.row > section {
+  display: flex;
+  min-height: 0;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  border: 2px solid #c7d3e0;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(36, 55, 89, 0.06);
+}
+
+.card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+h1 {
+  color: #16324f;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+header p {
+  color: #486581;
+  margin-bottom: 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+#recordingCountdown {
+  font-size: 0.875rem;
+}
+
+#statusMessage {
+  font-size: 0.95rem;
+}
+
+#predictBtn:disabled {
+  border-color: #cbd5e1;
+  background: #cbd5e1;
+  color: #64748b;
+}
+
+#predictBtn:not(:disabled) {
+  border-color: #0d6efd;
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+#probList {
+  margin-top: 0.5rem;
+}
+
+#probList li {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.map-box {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  border-radius: 0.9rem;
+  overflow: hidden;
+  border: 1px solid #d8e2ee;
+  background: #f8fbff;
+}
+
+@media (min-width: 992px) {
+  body,
+  body > .container-fluid {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  main.row {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  main.row > section {
+    min-height: 0;
+  }
+
+  main.row > section .card {
+    min-height: 100%;
+  }
+
+  .map-box {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  body,
+  body > .container-fluid {
+    min-height: auto;
+    height: auto;
+  }
+
+  .map-box {
+    min-height: 420px;
+  }
+}

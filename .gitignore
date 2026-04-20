@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual envs
+venv/
+.env/
+
+# OS
+.DS_Store
+
+# Data (IMPORTANT)
+Data/
+*.wav
+*.mp3
+*.flac
+
+# Experiments / training
+backend/training/
+Experiments/
+
+# Large artifacts you don’t need
+*.pt
+*.ckpt
+
+# Logs
+*.log

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- Main frontend layout for the live user flow.
+     The page is split into a controls area, a current prediction panel,
+     prediction history, feedback controls, and a province map. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapping the Spoken Word</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="/static/style.css?v=20260410e" />
+</head>
+<body>
+  <div class="container-fluid px-4 pt-2 pb-3 app-shell">
+    <header class="mb-3 app-header">
+      <h1 class="h2 mb-2">Mapping the Spoken Word</h1>
+      <p class="text-body-secondary mb-0">
+        Irish Accent Classification and Visualisation
+      </p>
+    </header>
+
+    <main class="row g-3 app-main">
+      <!-- Left dashboard area: 2x2 cards -->
+      <section class="col-12 col-lg-8 d-flex">
+        <div class="row g-3 w-100">
+          <!-- 1,1 Controls -->
+          <div class="col-12 col-md-6 d-flex">
+            <div class="card shadow-sm border-0 w-100 h-100">
+              <div class="card-body d-flex flex-column">
+                <h2 class="h5 card-title mb-3">Controls</h2>
+
+                <label for="modelSelect" class="form-label">Model</label>
+                <select id="modelSelect" class="form-select">
+                  <option>Loading models...</option>
+                </select>
+                <div id="modelDescription" class="form-text mt-2">
+                  Loading model description...
+                </div>
+
+                <label for="inputDeviceSelect" class="form-label mt-3">Microphone</label>
+                <select id="inputDeviceSelect" class="form-select">
+                  <option value="">Default microphone</option>
+                </select>
+
+                <div class="d-flex gap-2 my-3">
+                  <button id="recordBtn" class="btn btn-outline-primary w-100" type="button">
+                    Start Recording
+                  </button>
+                  <button id="stopBtn" class="btn btn-outline-secondary w-100" type="button" disabled>
+                    Stop Recording
+                  </button>
+                </div>
+
+                <div id="recordingCountdown" class="form-text mb-3">
+                  Auto-stop after 11 seconds (10s minimum clip)
+                </div>
+
+                <label for="audioFile" class="form-label">Upload audio file</label>
+                <input
+                  id="audioFile"
+                  class="form-control"
+                  type="file"
+                  accept=".wav,.mp3,.m4a,.ogg,.flac,.wma,audio/x-ms-wma,audio/*"
+                />
+
+                <audio id="audioPlayback" class="w-100 my-3" controls></audio>
+
+                <button id="predictBtn" class="btn btn-secondary w-100" type="button" disabled>
+                  Predict Accent
+                </button>
+
+                <div id="statusMessage" class="alert alert-secondary mt-3 mb-0 py-2">
+                  Loading...
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1,2 Current Prediction -->
+          <div class="col-12 col-md-6 d-flex">
+            <div class="card shadow-sm border-0 w-100 h-100">
+              <div class="card-body">
+                <h2 class="h5 card-title mb-3">Current Prediction</h2>
+
+                <p class="mb-1"><strong>Model:</strong> <span id="resultModel">-</span></p>
+                <p id="resultModelDescription" class="small text-body-secondary mb-2 d-none"></p>
+                <p class="mb-2"><strong>Prediction:</strong> <span id="resultLabel">-</span></p>
+                <p class="mb-3"><strong>Confidence:</strong> <span id="resultConfidence">-</span></p>
+
+                <h3 class="h6 text-uppercase text-body-secondary mb-2">Class Probabilities</h3>
+                <ul id="probList" class="list-group list-group-flush"></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2,1 Prediction History -->
+          <div class="col-12 col-md-6 d-flex">
+            <div class="card shadow-sm border-0 w-100 h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h2 class="h5 card-title mb-0">Prediction History</h2>
+                  <button
+                    id="clearHistoryBtn"
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    disabled
+                  >
+                    Clear Results
+                  </button>
+                </div>
+                <div id="predictionHistoryPlaceholder" class="text-body-secondary small">
+                  No previous predictions yet.
+                </div>
+                <div id="predictionHistoryList" class="d-none"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2,2 Feedback -->
+          <div class="col-12 col-md-6 d-flex">
+            <div class="card shadow-sm border-0 w-100 h-100">
+              <div class="card-body">
+                <h2 class="h5 card-title mb-3">Feedback</h2>
+
+                <div id="feedbackSection" class="d-none">
+                  <p class="mb-2">Was this prediction correct?</p>
+
+                  <div class="d-flex gap-2 mb-3">
+                    <button
+                      id="feedbackYesBtn"
+                      type="button"
+                      class="btn btn-outline-success btn-sm w-100"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      id="feedbackNoBtn"
+                      type="button"
+                      class="btn btn-outline-danger btn-sm w-100"
+                    >
+                      No
+                    </button>
+                  </div>
+
+                  <div id="correctLabelSection" class="d-none">
+                    <label for="correctLabelSelect" class="form-label">
+                      Select the correct province
+                    </label>
+                    <select id="correctLabelSelect" class="form-select form-select-sm">
+                      <option value="">Choose province</option>
+                      <option value="Leinster">Leinster</option>
+                      <option value="Munster">Munster</option>
+                      <option value="Connacht">Connacht</option>
+                      <option value="Ulster">Ulster</option>
+                    </select>
+
+                    <button
+                      id="saveCorrectionBtn"
+                      type="button"
+                      class="btn btn-sm btn-primary mt-2"
+                    >
+                      Save correction
+                    </button>
+                  </div>
+
+                  <div id="feedbackMessage" class="form-text mt-2"></div>
+                </div>
+
+                <div id="feedbackPlaceholder" class="text-body-secondary small">
+                  Run a prediction to give feedback.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right area: Map -->
+      <section class="col-12 col-lg-4 d-flex">
+        <div class="card shadow-sm border-0 w-100 h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="h5 card-title mb-0">Map</h2>
+              <button
+                id="resetMapBtn"
+                class="btn btn-sm btn-outline-secondary"
+                type="button"
+              >
+                Reset View
+              </button>
+            </div>
+
+            <div id="map" class="map-box flex-grow-1"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script type="module" src="/static/app.js?v=20260415b"></script>
+</body>
+</html>

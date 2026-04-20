@@ -1,0 +1,9 @@
+{
+  "task_name": "leinster_vs_rest",
+  "model_name": "logreg",
+  "label_classes": [
+    "Leinster",
+    "Rest"
+  ],
+  "feature_type": "wav2vec2-base_mean_pool"
+}

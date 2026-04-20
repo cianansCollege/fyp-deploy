@@ -1,0 +1,11 @@
+{
+  "task_name": "province_4way",
+  "model_name": "logreg",
+  "label_classes": [
+    "Connacht",
+    "Leinster",
+    "Munster",
+    "Ulster"
+  ],
+  "feature_type": "wav2vec2-base_mean_pool"
+}

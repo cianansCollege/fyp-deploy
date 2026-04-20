@@ -1,0 +1,367 @@
+/* Active dark theme for the deployed frontend.
+   These styles shape the card-based layout used by the controls, prediction,
+   history, feedback, and map panels served by FastAPI. */
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f1722 0%, #111827 100%);
+  color: #e6edf5;
+}
+
+body > .container-fluid {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  flex: 0 0 auto;
+  margin-bottom: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0;
+  border: 2px solid #314155;
+  background: #182230;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+main.row {
+  flex: 1 1 auto;
+  align-items: stretch;
+  min-height: 0;
+}
+
+main.row > section {
+  display: flex;
+  min-height: 0;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0;
+  border: 2px solid #314155;
+  background: #182230;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+.card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.prediction-stack {
+  gap: 0.5rem;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.prediction-card-current,
+.prediction-card-history {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.prediction-card-current {
+  flex: 0 0 54%;
+}
+
+.prediction-card-history {
+  flex: 1 1 46%;
+}
+
+.prediction-card-current .card-body,
+.prediction-card-history .card-body {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.prediction-history-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  border: 1px solid #314155;
+  background: #111827;
+  padding: 0.75rem;
+}
+
+.prediction-history-empty {
+  color: #9fb0c3;
+  font-size: 0.95rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #e6edf5;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+header p,
+.text-body-secondary,
+.form-text {
+  color: #9fb0c3 !important;
+  margin-bottom: 0;
+}
+
+label,
+strong,
+.card-title {
+  color: #d9e2ec;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0;
+  border: 1px solid #314155;
+  background: #111827;
+  color: #e6edf5;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #4f8fdb;
+  box-shadow: 0 0 0 0.2rem rgba(79, 143, 219, 0.2);
+  background: #111827;
+  color: #e6edf5;
+}
+
+.form-control::file-selector-button {
+  border: none;
+  background: #243244;
+  color: #e6edf5;
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.btn-outline-primary {
+  border-color: #4f8fdb;
+  color: #4f8fdb;
+  background: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  border-color: #4f8fdb;
+  background: #4f8fdb;
+  color: #ffffff;
+}
+
+.btn-outline-secondary {
+  border-color: #526274;
+  color: #c7d2de;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  border-color: #6b7c90;
+  background: #243244;
+  color: #ffffff;
+}
+
+#recordingCountdown {
+  font-size: 0.875rem;
+  color: #9fb0c3;
+}
+
+#audioPlayback {
+  filter: brightness(0.88) contrast(1.05);
+}
+
+#statusMessage {
+  font-size: 0.95rem;
+  border-radius: 0;
+  border: 1px solid #314155;
+  background: #111827;
+  color: #d9e2ec;
+}
+
+#predictBtn:disabled {
+  border-color: #3b4756;
+  background: #3b4756;
+  color: #8593a3;
+}
+
+#predictBtn:not(:disabled) {
+  border-color: #4f8fdb;
+  background: #4f8fdb;
+  color: #ffffff;
+}
+
+#probList {
+  margin-top: 0.5rem;
+  background: transparent;
+}
+
+#probList li,
+.list-group-item {
+  padding-left: 0;
+  padding-right: 0;
+  border-color: #243244;
+  background: transparent;
+  color: #d9e2ec;
+}
+
+.map-box {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  border: 1px solid #314155;
+  background: #111827;
+}
+
+/* Leaflet dark-ish framing */
+.leaflet-container {
+  background: #0f1722;
+}
+
+.leaflet-control-zoom a,
+.leaflet-bar a {
+  background-color: #182230;
+  color: #e6edf5;
+  border-bottom: 1px solid #314155;
+}
+
+.leaflet-control-zoom a:hover,
+.leaflet-bar a:hover {
+  background-color: #243244;
+  color: #ffffff;
+}
+
+.leaflet-control-attribution {
+  background: rgba(17, 24, 39, 0.8);
+  color: #9fb0c3;
+}
+
+@media (min-width: 992px) {
+  body,
+  body > .container-fluid {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  main.row {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  main.row > section {
+    min-height: 0;
+  }
+
+  main.row > section .card {
+    min-height: 0;
+  }
+
+  .prediction-stack {
+    min-height: 100%;
+  }
+
+  .map-box {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  body,
+  body > .container-fluid {
+    min-height: auto;
+    height: auto;
+  }
+
+  .map-box {
+    min-height: 420px;
+  }
+
+  .prediction-card-current,
+  .prediction-card-history {
+    flex: 0 0 auto;
+  }
+
+  .prediction-history-list {
+    min-height: 180px;
+  }
+}
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+#predictionHistoryList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+#feedbackSection,
+#feedbackPlaceholder {
+  flex: 1 1 auto;
+}
+
+#probList {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+  .app-main > section {
+    min-height: 0;
+  }
+
+  .app-main .row {
+    min-height: 0;
+  }
+
+  .app-main .row > div {
+    min-height: 0;
+  }
+
+  .app-main .card {
+    min-height: 0;
+  }
+
+  #map {
+    min-height: 0;
+  }
+}
+
+#resultLabel {
+  color: #c7d2de;
+}
+
+#resultModel{
+  color: #c7d2de;
+}
+
+#resultConfidence{
+  color: #c7d2de;
+}
+
+.mb-2{
+  color: #c7d2de;
+}
