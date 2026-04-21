@@ -9,12 +9,6 @@ venv/
 # OS
 .DS_Store
 
-# Data (IMPORTANT)
-Data/
-*.wav
-*.mp3
-*.flac
-
 # Experiments / training
 backend/training/
 Experiments/
