@@ -365,3 +365,33 @@ button:disabled {
 .mb-2{
   color: #c7d2de;
 }
+
+.history-card,
+.history-card-body {
+  min-height: 0;
+}
+
+.history-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+#predictionHistoryList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+  .history-card {
+    height: 100%;
+  }
+
+  .history-card-body {
+    height: 100%;
+  }
+
+  #predictionHistoryList {
+    max-height: 38vh;
+  }
+}
